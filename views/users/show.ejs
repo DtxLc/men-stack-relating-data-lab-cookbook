@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title><%= profileUser.username %>'s Recipes - CookBook</title>
+  <link rel="stylesheet" href="/css/main.css">
+</head>
+<body>
+  <%- include('../partials/_navbar.ejs') %>
+  <div class="container user-profile-container">
+    <div class="profile-header">
+      <h1><%= profileUser.username %>'s Recipes</h1>
+      <p class="profile-subtitle">Discover delicious recipes from this home chef</p>
+    </div>
+    
+    <% if (recipes && recipes.length > 0) { %>
+      <div class="recipes-grid">
+        <% recipes.forEach(recipe => { %>
+          <div class="recipe-card">
+            <h3 class="recipe-title"><%= recipe.name %></h3>
+            <div class="recipe-details">
+              <p class="recipe-ingredients">
+                <strong>Ingredients:</strong> <%= recipe.ingredients.length %> items
+              </p>
+              <% if (recipe.ingredients && recipe.ingredients.length > 0) { %>
+                <div class="ingredients-preview">
+                  <% recipe.ingredients.slice(0, 3).forEach(ingredient => { %>
+                    <span class="ingredient-tag"><%= ingredient.name %></span>
+                  <% }) %>
+                  <% if (recipe.ingredients.length > 3) { %>
+                    <span class="ingredient-tag more">+<%= recipe.ingredients.length - 3 %> more</span>
+                  <% } %>
+                </div>
+              <% } %>
+              <% if (recipe.instructions && recipe.instructions.trim()) { %>
+                <div class="instructions-preview">
+                  <strong>Instructions:</strong>
+                  <p><%= recipe.instructions.substring(0, 150) %><% if (recipe.instructions.length > 150) { %>...<% } %></p>
+                </div>
+              <% } %>
+            </div>
+          </div>
+        <% }) %>
+      </div>
+    <% } else { %>
+      <div class="empty-state">
+        <h2><%= profileUser.username %> hasn't shared any recipes yet!</h2>
+        <p>Check back later to see what delicious creations they come up with.</p>
+      </div>
+    <% } %>
+    
+    <div class="back-link">
+      <a href="/users" class="btn-back">← Back to Community</a>
+    </div>
+  </div>
+</body>
+</html>

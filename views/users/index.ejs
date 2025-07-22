@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Community - CookBook</title>
+  <link rel="stylesheet" href="/css/main.css">
+</head>
+<body>
+  <%- include('../partials/_navbar.ejs') %>
+  <div class="container community-page-container">
+    <h1>Explore Our Community</h1>
+    <p class="community-description">Discover amazing recipes from fellow cooking enthusiasts!</p>
+    
+    <% if (users && users.length > 0) { %>
+      <div class="users-grid">
+        <% users.forEach(communityUser => { %>
+          <% if (communityUser._id.toString() !== user._id.toString()) { %>
+            <div class="user-card">
+              <div class="user-info">
+                <h3><%= communityUser.username %></h3>
+                <p class="user-subtitle">Home Chef</p>
+              </div>
+              <div class="user-actions">
+                <a href="/users/<%= communityUser._id %>" class="btn-view-recipes">View Recipes</a>
+              </div>
+            </div>
+          <% } %>
+        <% }) %>
+      </div>
+    <% } else { %>
+      <div class="empty-state">
+        <h2>No other users have joined yet!</h2>
+        <p>Be the first to share your recipes with the community.</p>
+      </div>
+    <% } %>
+  </div>
+</body>
+</html>

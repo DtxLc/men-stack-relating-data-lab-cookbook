@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Ingredients - CookBook</title>
+  <link rel="stylesheet" href="/css/main.css">
+</head>
+<body>
+  <%- include('../partials/_navbar.ejs') %>
+  <div class="container ingredients-page-container">
+    <h1>Ingredients</h1>
+    
+    <div class="ingredients-content">
+      <div class="add-ingredient-section">
+        <h2>Add New Ingredient</h2>
+        <form action="/ingredients" method="POST" class="ingredient-form">
+          <div class="form-group">
+            <input type="text" name="name" placeholder="Enter ingredient name" required class="ingredient-input">
+            <button type="submit" class="btn-add">Add Ingredient</button>
+          </div>
+        </form>
+      </div>
+      
+      <div class="ingredients-list-section">
+        <h2>Available Ingredients (<%= ingredients.length %>)</h2>
+        <% if (ingredients && ingredients.length > 0) { %>
+          <div class="ingredients-grid">
+            <% ingredients.forEach(ingredient => { %>
+              <div class="ingredient-item">
+                <span class="ingredient-name"><%= ingredient.name %></span>
+              </div>
+            <% }) %>
+          </div>
+        <% } else { %>
+          <div class="empty-state">
+            <p>No ingredients available yet. Add your first ingredient above!</p>
+          </div>
+        <% } %>
+      </div>
+    </div>
+    
+    <div class="back-link">
+      <a href="/recipes" class="btn-back">← Back to Recipes</a>
+    </div>
+  </div>
+</body>
+</html>
